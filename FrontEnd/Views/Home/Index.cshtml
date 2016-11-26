@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model FrontEnd.Models.IndexModel
+
+
+<div>
+    <br />
+    <form asp-controller="Home" asp-action="Index" method="post">
+        <h4>You are about to add:</h4>
+        <input asp-for="@Model.ShoppingCategory" readonly hidden />
+        <p><h1>@Model.ShoppingCategory</h1></p>
+        <br />
+        <button type="submit">Add to Cart</button>
+        <br />
+        <br />
+        @if (@Model.Recommendations.Count() > 0)
+        {
+           <h2>Recommneded For You:</h2>
+            <table>
+                <tr>
+                    <td><h4>Product Categoty</h4></td>
+                    <td><h4>Total Purchases</h4></td>
+                </tr>
+                @foreach (var item in Model.Recommendations)
+                {
+                    <tr>
+                        <td>
+                            @item.Key
+                        </td>
+                        <td>
+                            @item.Value
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    </form>
+</div>  
