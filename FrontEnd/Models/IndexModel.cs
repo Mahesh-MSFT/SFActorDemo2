@@ -12,5 +12,7 @@ namespace FrontEnd.Models
         public string ShoppingCategory { get; set; }
 
         public Dictionary<string, int> Recommendations { get; set; }
+
+        public string CrossSaleItem { get; set; }
     }
 }

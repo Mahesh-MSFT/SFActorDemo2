@@ -7,6 +7,7 @@ using Microsoft.ServiceFabric.Actors;
 using SoppingCart.Interfaces;
 using Microsoft.ServiceFabric.Actors.Client;
 using FrontEnd.Models;
+using CrossSale.Interfaces;
 
 namespace FrontEnd.Controllers
 {
@@ -16,7 +17,7 @@ namespace FrontEnd.Controllers
         {
             var im = new IndexModel();
             Random rnd = new Random();
-            int scn = rnd.Next(1, 10);
+            int scn = rnd.Next(0, 10);
 
             ShoppingCategoryEnum sce = (ShoppingCategoryEnum)scn;
 
@@ -25,6 +26,14 @@ namespace FrontEnd.Controllers
             ActorId actorId = new ActorId(HttpContext.Connection.RemoteIpAddress.ToString());
 
             ISoppingCart sc = ActorProxy.Create<ISoppingCart>(actorId, "fabric:/SFActorDemoApp");
+
+            ICrossSale cs = ActorProxy.Create<ICrossSale>(actorId, "fabric:/SFActorDemoApp");
+
+            int csi = cs.DoCrossSale(im.ShoppingCategory).Result;
+
+            ShoppingCategoryEnum sce2 = (ShoppingCategoryEnum)csi;
+
+            im.CrossSaleItem = sce2.ToString();
 
             im.Recommendations = sc.GetCartItemsAsync().Result;
 

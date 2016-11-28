@@ -5,10 +5,16 @@
     <Parameter Name="SoppingCartActorService_PartitionCount" DefaultValue="10" />
     <Parameter Name="SoppingCartActorService_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="SoppingCartActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="CrossSaleActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="CrossSaleActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="CrossSaleActorService_TargetReplicaSetSize" DefaultValue="3" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
        ServiceManifest.xml file. -->
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="CrossSalePkg" ServiceManifestVersion="1.0.0" />
+  </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="FrontEndPkg" ServiceManifestVersion="1.0.0" />
     <ConfigOverrides />
@@ -30,6 +36,11 @@
     <Service Name="SoppingCartActorService" GeneratedIdRef="798fdb63-c0ef-47c0-9476-feab02245cd8|Persisted">
       <StatefulService ServiceTypeName="SoppingCartActorServiceType" TargetReplicaSetSize="[SoppingCartActorService_TargetReplicaSetSize]" MinReplicaSetSize="[SoppingCartActorService_MinReplicaSetSize]">
         <UniformInt64Partition PartitionCount="[SoppingCartActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="CrossSaleActorService" GeneratedIdRef="afe4c063-b3fd-43bc-9016-5501afd7f100|Persisted">
+      <StatefulService ServiceTypeName="CrossSaleActorServiceType" TargetReplicaSetSize="[CrossSaleActorService_TargetReplicaSetSize]" MinReplicaSetSize="[CrossSaleActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[CrossSaleActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
     </Service>
   </DefaultServices>

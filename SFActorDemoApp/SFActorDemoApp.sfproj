@@ -29,6 +29,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CrossSale\CrossSale.csproj" />
     <ProjectReference Include="..\FrontEnd\FrontEnd.xproj" />
     <ProjectReference Include="..\SoppingCart\SoppingCart.csproj" />
   </ItemGroup>

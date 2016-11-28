@@ -5,5 +5,8 @@
     <Parameter Name="SoppingCartActorService_PartitionCount" Value="1" />
     <Parameter Name="SoppingCartActorService_TargetReplicaSetSize" Value="1" />
     <Parameter Name="SoppingCartActorService_MinReplicaSetSize" Value="1" />
+    <Parameter Name="CrossSaleActorService_PartitionCount" Value="1" />
+    <Parameter Name="CrossSaleActorService_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="CrossSaleActorService_MinReplicaSetSize" Value="1" />
   </Parameters>
 </Application>

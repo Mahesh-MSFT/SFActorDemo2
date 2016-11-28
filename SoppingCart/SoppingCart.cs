@@ -8,6 +8,7 @@ using Microsoft.ServiceFabric.Actors.Runtime;
 using Microsoft.ServiceFabric.Actors.Client;
 using SoppingCart.Interfaces;
 using Microsoft.ServiceFabric.Data.Collections;
+using CrossSale.Interfaces;
 
 namespace SoppingCart
 {
@@ -71,7 +72,7 @@ namespace SoppingCart
 
             ////return this.StateManager.GetOrAddStateAsync<IReliableDictionary<string, ShoppingItem>>("shoppingcartList", shoppingItem);
 
-            Recommendation rec = this.StateManager.GetStateAsync<Recommendation>("State").Result;
+          Recommendation rec = this.StateManager.GetStateAsync<Recommendation>("State").Result;
 
             rec.RecommendationList.Add(shoppingItem);
 
