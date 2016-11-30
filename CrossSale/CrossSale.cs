@@ -40,7 +40,7 @@ namespace CrossSale
                     scn = 7;
                     break;
                 case "Toys":
-                    scn = 10;
+                    scn = 0;
                     break;
                 case "Clothes":
                     scn = 9;
