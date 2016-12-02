@@ -7,7 +7,7 @@
         Clothes,
         Perfumes,
         Books,
-        Cars,
+        Shoes,
         Flowers,
         Furniture,
         Food,

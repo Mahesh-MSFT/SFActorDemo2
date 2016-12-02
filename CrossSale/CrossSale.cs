@@ -51,7 +51,7 @@ namespace CrossSale
                 case "Books":
                     scn = 1;
                     break;
-                case "Cars":
+                case "Shoes":
                     scn = 6;
                     break;
                 case "Flowers":
