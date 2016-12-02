@@ -5,7 +5,7 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.5.2",
       "compile": {
-        "bin/Release/CrossSale.Interfaces.dll": {}
+        "bin/x64/Release/CrossSale.Interfaces.dll": {}
       },
       "runtime": {
         "../packages/Microsoft.ServiceFabric.5.3.311/lib/net45/Microsoft.ServiceFabric.Internal.Strings.dll": {},
@@ -17,14 +17,21 @@
         "../packages/Microsoft.ServiceFabric.Data.2.3.311/lib/net45/Microsoft.ServiceFabric.Data.Interfaces.dll": {},
         "../packages/Microsoft.ServiceFabric.Data.2.3.311/lib/net45/Microsoft.ServiceFabric.Data.dll": {},
         "../packages/Microsoft.ServiceFabric.Services.2.3.311/lib/net45/Microsoft.ServiceFabric.Services.dll": {},
-        "bin/Release/CrossSale.Interfaces.dll": {}
+        "bin/x64/Release/CrossSale.Interfaces.dll": {}
+      },
+      "contentFiles": {
+        "bin/x64/Release/CrossSale.Interfaces.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
       }
     },
     "SoppingCart.Interfaces/1.0.0": {
       "type": "project",
       "framework": ".NETFramework,Version=v4.5.2",
       "compile": {
-        "bin/Release/SoppingCart.Interfaces.dll": {}
+        "bin/x64/Release/SoppingCart.Interfaces.dll": {}
       },
       "runtime": {
         "../packages/Microsoft.ServiceFabric.5.3.311/lib/net45/Microsoft.ServiceFabric.Internal.Strings.dll": {},
@@ -36,7 +43,14 @@
         "../packages/Microsoft.ServiceFabric.Data.2.3.311/lib/net45/Microsoft.ServiceFabric.Data.Interfaces.dll": {},
         "../packages/Microsoft.ServiceFabric.Data.2.3.311/lib/net45/Microsoft.ServiceFabric.Data.dll": {},
         "../packages/Microsoft.ServiceFabric.Services.2.3.311/lib/net45/Microsoft.ServiceFabric.Services.dll": {},
-        "bin/Release/SoppingCart.Interfaces.dll": {}
+        "bin/x64/Release/SoppingCart.Interfaces.dll": {}
+      },
+      "contentFiles": {
+        "bin/x64/Release/SoppingCart.Interfaces.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
       }
     }
   }

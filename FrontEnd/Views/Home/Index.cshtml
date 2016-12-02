@@ -16,7 +16,7 @@
         @if (@Model.Recommendations.Count() > 0)
         {
             <div class="col-md-3">
-                <h4>Your Recommendation:</h4>
+                <h4>What others are buying:</h4>
                 <ol>
                     @foreach (var item in Model.Recommendations)
                     {
@@ -26,7 +26,8 @@
             </div>
             <div class="col-md-3">
                 <h4>See Also</h4>
-                <P>@Model.CrossSaleItem</P>
+                @*<a>@Model.CrossSaleItem</a>*@
+                <a href='@string.Format("http://www.amazon.com/s?url=search-alias%3Daps&field-keywords={0}", @Model.CrossSaleItem)' target = "_blank">@Model.CrossSaleItem</a>
             </div>
         }
 </div>

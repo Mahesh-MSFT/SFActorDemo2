@@ -83,18 +83,5 @@ namespace FrontEnd.Controllers
         {
             return View();
         }
-
-        public IActionResult Cart()
-        {
-            ActorId actorId = new ActorId(HttpContext.Connection.RemoteIpAddress.ToString());
-
-            ISoppingCart sc = ActorProxy.Create<ISoppingCart>(actorId, "fabric:/SFActorDemoApp");
-
-            var items = sc.GetCartItemsAsync().Result;
-
-            ViewData["Message"] = string.Format("Your cart has {0} items.", items.ToString());
-
-            return View();
-        }
     }
 }
