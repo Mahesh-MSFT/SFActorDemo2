@@ -37,6 +37,8 @@ namespace FrontEnd.Controllers
 
             im.Recommendations = sc.GetCartItemsAsync().Result;
 
+            ViewData["Version"] = sc.GetVersionAsync().Result;
+
             return View(im);
         }
 

@@ -16,5 +16,7 @@ namespace SoppingCart.Interfaces
         Task<Dictionary<string, int>> GetCartItemsAsync();
 
         Task AddToCartAsync(ShoppingItem shoppingItem);
+
+        Task<string> GetVersionAsync();
     }
 }

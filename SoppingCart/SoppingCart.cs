@@ -23,6 +23,7 @@ namespace SoppingCart
     [StatePersistence(StatePersistence.Persisted)]
     internal class SoppingCart : Actor, ISoppingCart
     {
+        private readonly string version;
         /// <summary>
         /// Initializes a new instance of SoppingCart
         /// </summary>
@@ -31,6 +32,7 @@ namespace SoppingCart
         public SoppingCart(ActorService actorService, ActorId actorId)
             : base(actorService, actorId)
         {
+            version = actorService.Context.CodePackageActivationContext.CodePackageVersion;
         }
 
         /// <summary>
@@ -47,15 +49,15 @@ namespace SoppingCart
             // For more information, see https://aka.ms/servicefabricactorsstateserialization
 
             //return this.StateManager.TryAddStateAsync("shoppingcart", new ShoppingItem { ShoppingItemCategory = "testname"});
-
+            this.StateManager.TryAddStateAsync<string>("Version", version);
             return this.StateManager.TryAddStateAsync<Recommendation>("State", new Recommendation());
+
         }
 
         Task<Dictionary<string, int>> ISoppingCart.GetCartItemsAsync()
         {
             //return this.StateManager.GetStateAsync<List<ShoppingItem>>("shoppingcart");
             //var allActors = this.StateManager.GetStateNamesAsync().Result;
-
             var allActors = this.StateManager.GetStateAsync<Recommendation>("State").Result;
 
             //var recomm = allActors.RecommendationList.GroupBy(n => n.ShoppingItemCategory, (key, values) => new { Category = key, Count = values.Count() });
@@ -85,6 +87,11 @@ namespace SoppingCart
 
             ////return this.StateManager.AddOrUpdateStateAsync(shoppingItem.ShoppingItemCategory, shoppingItem);
 
+        }
+
+        Task<string> ISoppingCart.GetVersionAsync()
+        {
+            return this.StateManager.GetStateAsync<string>("Version");
         }
     }
 }
