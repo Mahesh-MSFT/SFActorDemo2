@@ -25,10 +25,11 @@ namespace FrontEnd.Controllers
 
             //ActorId actorId = new ActorId(HttpContext.Connection.RemoteIpAddress.ToString());
             ActorId actorId = new ActorId("Demo");
+            ActorId actorId2 = new ActorId("Demo2");
 
             ISoppingCart sc = ActorProxy.Create<ISoppingCart>(actorId, "fabric:/SFActorDemoApp");
 
-            ICrossSale cs = ActorProxy.Create<ICrossSale>(actorId, "fabric:/SFActorDemoApp");
+            ICrossSale cs = ActorProxy.Create<ICrossSale>(actorId2, "fabric:/SFActorDemoApp");
 
             int csi = cs.DoCrossSale(im.ShoppingCategory).Result;
 
