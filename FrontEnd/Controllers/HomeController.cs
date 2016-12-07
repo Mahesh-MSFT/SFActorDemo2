@@ -56,6 +56,18 @@ namespace FrontEnd.Controllers
         }
 
         [HttpPost]
+        public IActionResult Logout(IndexModel indexModel)
+        {
+            ActorId actorId = new ActorId(HttpContext.Connection.RemoteIpAddress.ToString());
+
+            IActorService myActorServiceProxy = ActorServiceProxy.Create(new Uri("fabric:/SFActorDemoApp"), actorId);
+
+            myActorServiceProxy.DeleteActorAsync(actorId, new System.Threading.CancellationToken());
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
         public IActionResult AddToCart2(ShoppingItem shoppinItem)
         {
             // Create a randomly distributed actor ID
