@@ -23,7 +23,8 @@ namespace FrontEnd.Controllers
 
             im.ShoppingCategory = sce.ToString();
 
-            ActorId actorId = new ActorId(HttpContext.Connection.RemoteIpAddress.ToString());
+            //ActorId actorId = new ActorId(HttpContext.Connection.RemoteIpAddress.ToString());
+            ActorId actorId = new ActorId("Demo");
 
             ISoppingCart sc = ActorProxy.Create<ISoppingCart>(actorId, "fabric:/SFActorDemoApp");
 
@@ -45,7 +46,8 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public IActionResult Index(IndexModel indexModel)
         {
-            ActorId actorId = new ActorId(HttpContext.Connection.RemoteIpAddress.ToString());
+            //ActorId actorId = new ActorId(HttpContext.Connection.RemoteIpAddress.ToString());
+            ActorId actorId = new ActorId("Demo");
 
             ISoppingCart sc = ActorProxy.Create<ISoppingCart>(actorId, "fabric:/SFActorDemoApp");
 
