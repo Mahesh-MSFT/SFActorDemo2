@@ -13,7 +13,7 @@ namespace SoppingCart.Interfaces
     /// </summary>
     public interface ISoppingCart : IActor
     {
-        Task<Dictionary<string, int>> GetCartItemsAsync();
+        Task<CartItem> GetCartItemsAsync();
 
         Task AddToCartAsync(ShoppingItem shoppingItem);
 

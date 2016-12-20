@@ -9,6 +9,7 @@ using Microsoft.ServiceFabric.Actors.Client;
 using SoppingCart.Interfaces;
 using Microsoft.ServiceFabric.Data.Collections;
 using CrossSale.Interfaces;
+using System.Text;
 
 namespace SoppingCart
 {
@@ -54,18 +55,29 @@ namespace SoppingCart
 
         }
 
-        Task<Dictionary<string, int>> ISoppingCart.GetCartItemsAsync()
+        Task<CartItem> ISoppingCart.GetCartItemsAsync()
         {
+            var cartItem = new CartItem();
+
             //return this.StateManager.GetStateAsync<List<ShoppingItem>>("shoppingcart");
             //var allActors = this.StateManager.GetStateNamesAsync().Result;
             var allActors = this.StateManager.GetStateAsync<Recommendation>("State").Result;
 
             //var recomm = allActors.RecommendationList.GroupBy(n => n.ShoppingItemCategory, (key, values) => new { Category = key, Count = values.Count() });
-            var recomm = allActors.RecommendationList.GroupBy(n => n.ShoppingItemCategory).OrderByDescending(g => g.Count()).ToDictionary(g => g.Key, g => g.Count());
+            //var recomm = allActors.RecommendationList.GroupBy(n => n.ShoppingItemCategory).OrderByDescending(g => g.Count()).ToDictionary(g => g.Key, g => g.Count());
+            //var recomm = allActors.RecommendationList.GroupBy(n => n.IPAddress).OrderByDescending(g => g.Count()).ToDictionary(g => g.Key, g => g.Count());
+            //var recomm = allActors.RecommendationList.GroupBy(n => n.IPAddress).Select(x => x.First()).ToDictionary(x => x.IPAddress, x => x.ShoppingItemCategory);
+            var recomm = allActors.RecommendationList.GroupBy(x => x.IPAddress, (key, g) => g.OrderByDescending(e => e.AddedOn).First()).ToDictionary(x => x.IPAddress, x => x.ShoppingItemCategory);
 
             //return Task.FromResult<int>(allActors.RecommendationList.Count());
 
-            return Task.FromResult<Dictionary<string, int>>(recomm);
+            Random rnd = new Random();
+            int scn = rnd.Next(0, 10);
+
+            cartItem.NewCartItem = scn.ToString();
+            cartItem.OtherCartItems = recomm;
+
+            return Task.FromResult<CartItem>(cartItem);
         }
 
         Task ISoppingCart.AddToCartAsync(ShoppingItem shoppingItem)

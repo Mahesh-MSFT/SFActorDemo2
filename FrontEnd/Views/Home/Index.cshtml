@@ -8,7 +8,10 @@
         <form asp-controller="Home" asp-action="Index" method="post">
             <h4>You are about to add:</h4>
             <input asp-for="@Model.ShoppingCategory" readonly hidden />
-            <p><h1>@Model.ShoppingCategory</h1></p>
+            @*<p><h1>@Model.ShoppingCategory</h1></p>
+            <br />*@
+            <div id="output"><h1 id="p"></h1></div>
+            <div id="output2"><h1 id="p2"></h1></div>
             <br />
             <button type="submit">Add to Cart</button>
         </form>
@@ -18,7 +21,7 @@
             <button type="submit">Logout</button>
         </form>*@
     </div>
-        @if (@Model.Recommendations.Count() > 0)
+        @if (@Model.Recommendations!= null && @Model.Recommendations.Count() > 0)
         {
             <div class="col-md-3">
                 <h4>What others are buying:</h4>
@@ -36,3 +39,66 @@
             </div>
         }
 </div>
+<script language="javascript" type="text/javascript">
+
+    var socket;
+    var uri = "ws://" + window.location.host + "/ws";
+    var output;
+    var text = "test echo";
+
+    function write(s) {
+        //var p = document.createElement("p");
+        p.innerHTML = s;
+        output.replaceChild(p, p);
+    }
+
+    function doConnect() {
+        socket = new WebSocket(uri);
+        socket.onopen = function (e) {
+            //write("opened " + uri);
+            doSend();
+        };
+        socket.onclose = function (e) {
+            //write("closed");
+        };
+        socket.onmessage = function (e) {
+           
+            var jsonobject = $.parseJSON(e.data);
+
+            //write(e.data);
+
+            write(jsonobject.NewCartItem);
+
+            //$(jsonobject).each(function(i,val){
+            //    $.each(val,function(k,v){
+            //        write(k+" : "+ v);
+            //    });
+
+            //});
+            
+
+            socket.close();
+        };
+        socket.onerror = function (e) {
+            write("Error: " + e.data);
+        };
+    }
+
+    function doSend() {
+        //write("Sending: " + text);
+        //socket.send(text);
+        socket.send(p.innerHTML)
+    }
+
+    function onInit() {
+        output = document.getElementById("output");
+        doConnect();
+    }
+
+    //window.onload = onInit;
+    //window.onclick = onInit;
+    //window.onmousemove = onInit;
+
+    setInterval(onInit, 1500);
+
+</script>

@@ -8,6 +8,7 @@
     <Parameter Name="CrossSaleActorService_PartitionCount" DefaultValue="10" />
     <Parameter Name="CrossSaleActorService_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="CrossSaleActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="ASPNETCORE_ENVIRONMENT" DefaultValue="" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -17,7 +18,15 @@
   </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="FrontEndPkg" ServiceManifestVersion="1.0.0" />
-    <ConfigOverrides />
+    <ConfigOverrides>
+      <ConfigOverride Name="Config">
+        <Settings>
+          <Section Name="Environment">
+            <Parameter Name="ASPNETCORE_ENVIRONMENT" Value="[ASPNETCORE_ENVIRONMENT]" />
+          </Section>
+        </Settings>
+      </ConfigOverride>
+    </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="SoppingCartPkg" ServiceManifestVersion="1.0.0" />

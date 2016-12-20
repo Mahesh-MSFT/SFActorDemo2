@@ -6,4 +6,9 @@
     <Parameter Name="MyParameter" Value="Value1" />
   </Section>
   -->
+
+  <Section Name="Environment">
+    <Parameter Name="ASPNETCORE_ENVIRONMENT" Value="" />
+  </Section>
+  
 </Settings>

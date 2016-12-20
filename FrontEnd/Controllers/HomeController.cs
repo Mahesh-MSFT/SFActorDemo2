@@ -16,32 +16,34 @@ namespace FrontEnd.Controllers
         public IActionResult Index()
         {
             var im = new IndexModel();
-            Random rnd = new Random();
-            int scn = rnd.Next(0, 10);
+            //Random rnd = new Random();
+            //int scn = rnd.Next(0, 10);
 
-            ShoppingCategoryEnum sce = (ShoppingCategoryEnum)scn;
+            //ShoppingCategoryEnum sce = (ShoppingCategoryEnum)scn;
 
-            im.ShoppingCategory = sce.ToString();
+            //im.ShoppingCategory = sce.ToString();
 
             //ActorId actorId = new ActorId(HttpContext.Connection.RemoteIpAddress.ToString());
-            ActorId actorId = new ActorId("Demo");
-            ActorId actorId2 = new ActorId("Demo2");
 
-            ISoppingCart sc = ActorProxy.Create<ISoppingCart>(actorId, "fabric:/SFActorDemoApp");
+            //ActorId actorId2 = new ActorId("Demo2");
 
-            ICrossSale cs = ActorProxy.Create<ICrossSale>(actorId2, "fabric:/SFActorDemoApp");
 
-            int csi = cs.DoCrossSale(im.ShoppingCategory).Result;
 
-            ShoppingCategoryEnum sce2 = (ShoppingCategoryEnum)csi;
+            //ICrossSale cs = ActorProxy.Create<ICrossSale>(actorId2, "fabric:/SFActorDemoApp");
 
-            im.CrossSaleItem = sce2.ToString();
+            //int csi = cs.DoCrossSale(im.ShoppingCategory).Result;
 
-            im.Recommendations = sc.GetCartItemsAsync().Result;
+            //ShoppingCategoryEnum sce2 = (ShoppingCategoryEnum)csi;
 
-            ViewData["Version"] = sc.GetVersionAsync().Result;
+            //im.CrossSaleItem = sce2.ToString();
+
+            ////im.Recommendations = sc.GetCartItemsAsync().Result;
+
+            ////ViewData["Version"] = sc.GetVersionAsync().Result;
 
             return View(im);
+
+            ////return View();
         }
 
         [HttpPost]

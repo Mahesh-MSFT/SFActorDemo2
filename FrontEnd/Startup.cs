@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using FrontEnd.WebSockets;
 
 namespace FrontEnd
 {
@@ -55,6 +56,8 @@ namespace FrontEnd
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.Map("/ws", SocketHandler.Map);
         }
     }
 }

@@ -63,10 +63,13 @@ namespace FrontEnd
 
                 string serverUrl = $"{endpoint.Protocol}://{FabricRuntime.GetNodeContext().IPAddressOrFQDN}:{endpoint.Port}";
 
+                var environment = FabricRuntime.GetActivationContext().GetConfigurationPackageObject("Config").Settings.Sections["Environment"].Parameters["ASPNETCORE_ENVIRONMENT"].Value;
+
                 _webHost = new WebHostBuilder().UseKestrel()
                                                .UseContentRoot(Directory.GetCurrentDirectory())
                                                .UseStartup<Startup>()
                                                .UseUrls(serverUrl)
+                                               .UseEnvironment(environment)
                                                .Build();
 
                 _webHost.Start();
