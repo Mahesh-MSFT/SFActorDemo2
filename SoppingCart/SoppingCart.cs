@@ -89,6 +89,7 @@ namespace SoppingCart
           Recommendation rec = this.StateManager.GetStateAsync<Recommendation>("State").Result;
 
             rec.RecommendationList.Add(shoppingItem);
+            ////rec.RecommendationList.Add(new ShoppingItem { AddedOn = DateTime.UtcNow, IPAddress = "10.45.278:90", ShoppingItemCategory = "Test" });
 
             return this.StateManager.SetStateAsync<Recommendation>("State", rec);
 

@@ -11,7 +11,6 @@
             @*<p><h1>@Model.ShoppingCategory</h1></p>
             <br />*@
             <div id="output"><h1 id="p"></h1></div>
-            <div id="output2"><h1 id="p2"></h1></div>
             <br />
             <button type="submit">Add to Cart</button>
         </form>
@@ -21,7 +20,11 @@
             <button type="submit">Logout</button>
         </form>*@
     </div>
-        @if (@Model.Recommendations!= null && @Model.Recommendations.Count() > 0)
+    <div id="output2" class="col-md-3">
+        <h4>What others are buying:</h4>
+        <h3 id="p2"></h3>
+    </div>
+        @if (@Model.Recommendations != null && @Model.Recommendations.Count() > 0)
         {
             <div class="col-md-3">
                 <h4>What others are buying:</h4>
@@ -35,10 +38,10 @@
             <div class="col-md-3">
                 <h4>See Also</h4>
                 @*<a>@Model.CrossSaleItem</a>*@
-                <a href='@string.Format("http://www.amazon.com/s?url=search-alias%3Daps&field-keywords={0}", @Model.CrossSaleItem)' target = "_blank">@Model.CrossSaleItem</a>
+                <a href='@string.Format("http://www.amazon.com/s?url=search-alias%3Daps&field-keywords={0}", @Model.CrossSaleItem)' target="_blank">@Model.CrossSaleItem</a>
             </div>
         }
-</div>
+    </div>
 <script language="javascript" type="text/javascript">
 
     var socket;
@@ -46,10 +49,22 @@
     var output;
     var text = "test echo";
 
-    function write(s) {
+    //function write(s) {
+    //    //var p = document.createElement("p");
+    //    p.innerHTML = s;
+    //    output.replaceChild(p, p);
+    //}
+
+    function write(s, p, o) {
         //var p = document.createElement("p");
         p.innerHTML = s;
-        output.replaceChild(p, p);
+        o.replaceChild(p, p);
+    }
+
+    function write2(s) {
+        //var p = document.createElement("p");
+        p2.innerHTML = s;
+        output2.replaceChild(p2, p2);
     }
 
     function doConnect() {
@@ -67,7 +82,19 @@
 
             //write(e.data);
 
-            write(jsonobject.NewCartItem);
+            write(jsonobject.NewCartItem, p, output);
+
+            var html = '<ul>'
+
+            $.each(jsonobject.OtherCartItems, function (idx, obj) {
+                //write(idx + ':' + obj, p2, output2);
+
+                html += "<li>" + idx + ":  " + obj + "</li>";
+            });
+
+            html += '</ul>';
+            $('#p2').html(html);
+
 
             //$(jsonobject).each(function(i,val){
             //    $.each(val,function(k,v){
@@ -92,6 +119,7 @@
 
     function onInit() {
         output = document.getElementById("output");
+        output2 = document.getElementById("output2");
         doConnect();
     }
 
