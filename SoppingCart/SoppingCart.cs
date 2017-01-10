@@ -68,7 +68,7 @@ namespace SoppingCart
             //var recomm = allActors.RecommendationList.GroupBy(n => n.IPAddress).OrderByDescending(g => g.Count()).ToDictionary(g => g.Key, g => g.Count());
             //var recomm = allActors.RecommendationList.GroupBy(n => n.IPAddress).Select(x => x.First()).ToDictionary(x => x.IPAddress, x => x.ShoppingItemCategory);
             //var recomm = allActors.RecommendationList.GroupBy(x => x.IPAddress, (key, g) => g.OrderByDescending(e => e.AddedOn).First()).ToDictionary(x => x.IPAddress, x => x.ShoppingItemCategory);
-            var recomm = allActors.RecommendationList.GroupBy(x => x.IPAddress).Select(t => t.OrderByDescending(c => c.AddedOn).First()).ToDictionary(x => x.IPAddress, x=> x.ShoppingItemCategory);
+            var recomm = allActors.RecommendationList.Where(x => x.AddedOn > DateTime.UtcNow.AddSeconds(-2)).GroupBy(x => x.IPAddress).Select(t => t.OrderByDescending(c => c.AddedOn).First()).ToDictionary(x => x.IPAddress, x=> x.ShoppingItemCategory);
 
             //var recommquery = from recomms in allActors.RecommendationList
             //            group recomms by recomms.IPAddress into recommsgroup
