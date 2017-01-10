@@ -68,7 +68,7 @@ namespace SoppingCart
             //var recomm = allActors.RecommendationList.GroupBy(n => n.IPAddress).OrderByDescending(g => g.Count()).ToDictionary(g => g.Key, g => g.Count());
             //var recomm = allActors.RecommendationList.GroupBy(n => n.IPAddress).Select(x => x.First()).ToDictionary(x => x.IPAddress, x => x.ShoppingItemCategory);
             //var recomm = allActors.RecommendationList.GroupBy(x => x.IPAddress, (key, g) => g.OrderByDescending(e => e.AddedOn).First()).ToDictionary(x => x.IPAddress, x => x.ShoppingItemCategory);
-            var recomm = allActors.RecommendationList.GroupBy(x => x.IPAddress).Select(t => t.OrderByDescending(c => c.AddedOn)).FirstOrDefault().ToDictionary(x => x.IPAddress, x=> x.ShoppingItemCategory);
+            var recomm = allActors.RecommendationList.GroupBy(x => x.IPAddress).Select(t => t.OrderByDescending(c => c.AddedOn).First()).ToDictionary(x => x.IPAddress, x=> x.ShoppingItemCategory);
 
             //var recommquery = from recomms in allActors.RecommendationList
             //            group recomms by recomms.IPAddress into recommsgroup
@@ -90,23 +90,28 @@ namespace SoppingCart
 
         Task ISoppingCart.AddToCartAsync(ShoppingItem shoppingItem)
         {
-            //var shoppingCartList = this.StateManager.GetOrAddStateAsync<IReliableDictionary<string, ShoppingItem>>("",)
+           
+                //var shoppingCartList = this.StateManager.GetOrAddStateAsync<IReliableDictionary<string, ShoppingItem>>("",)
 
-            ////return this.StateManager.GetOrAddStateAsync<IReliableDictionary<string, ShoppingItem>>("shoppingcartList", shoppingItem);
+                ////return this.StateManager.GetOrAddStateAsync<IReliableDictionary<string, ShoppingItem>>("shoppingcartList", shoppingItem);
 
-          Recommendation rec = this.StateManager.GetStateAsync<Recommendation>("State").Result;
+                Recommendation rec = this.StateManager.GetStateAsync<Recommendation>("State").Result;
 
-            rec.RecommendationList.Add(shoppingItem);
-            ////rec.RecommendationList.Add(new ShoppingItem { AddedOn = DateTime.UtcNow, IPAddress = "10.45.278:90", ShoppingItemCategory = "Test" });
+                if (!String.IsNullOrWhiteSpace(shoppingItem.ShoppingItemCategory))
 
-            return this.StateManager.SetStateAsync<Recommendation>("State", rec);
+                {
+                    rec.RecommendationList.Add(shoppingItem);
+                    ////rec.RecommendationList.Add(new ShoppingItem { AddedOn = DateTime.UtcNow, IPAddress = "10.45.278:90", ShoppingItemCategory = "Test" });
+                }
+
+                return this.StateManager.SetStateAsync<Recommendation>("State", rec);
 
 
-            ///return this.StateManager.AddOrUpdateStateAsync(shoppingItem.ShoppingItemCategory, shoppingItem, (k , v) => shoppingItem);
+                ///return this.StateManager.AddOrUpdateStateAsync(shoppingItem.ShoppingItemCategory, shoppingItem, (k , v) => shoppingItem);
 
-            //return this.StateManager.AddStateAsync<ShoppingItem>(shoppingItem.ShoppingItemName, shoppingItem);
+                //return this.StateManager.AddStateAsync<ShoppingItem>(shoppingItem.ShoppingItemName, shoppingItem);
 
-            ////return this.StateManager.AddOrUpdateStateAsync(shoppingItem.ShoppingItemCategory, shoppingItem);
+                ////return this.StateManager.AddOrUpdateStateAsync(shoppingItem.ShoppingItemCategory, shoppingItem);
 
         }
 
