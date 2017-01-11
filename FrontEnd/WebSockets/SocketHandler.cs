@@ -50,11 +50,6 @@ namespace FrontEnd.WebSockets
 
                 ret.NewCartItem =((ShoppingCategoryEnum)Convert.ToInt16(ret.NewCartItem)).ToString();
 
-                ////var csc = new ArraySegment<byte>();
-
-
-                ////await this.socket.SendAsync(outgoing, WebSocketMessageType.Text, true, CancellationToken.None);
-
                 var data = JsonConvert.SerializeObject(ret);
                 var encoded = Encoding.UTF8.GetBytes(data);
                 var buffer2 = new ArraySegment<Byte>(encoded, 0, encoded.Length);
@@ -68,17 +63,11 @@ namespace FrontEnd.WebSockets
             if (!hc.WebSockets.IsWebSocketRequest)
                 return;
 
-            //hc.Connection.RemoteIpAddress
-
             var socket = await hc.WebSockets.AcceptWebSocketAsync();
             var h = new SocketHandler(socket, hc.Connection.RemoteIpAddress.ToString());
 
             await h.EchoLoop();
 
-            //while (true)
-            //{
-            //    await h.EchoLoop();
-            //}
         }
 
         public static void Map(IApplicationBuilder app)

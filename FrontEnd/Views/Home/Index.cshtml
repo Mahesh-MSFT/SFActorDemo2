@@ -12,13 +12,7 @@
             <br />*@
             <div id="output"><h1 id="p"></h1></div>
             <br />
-            @*<button type="submit">Add to Cart</button>*@
         </form>
-        @*<br />
-        <br />
-        <form asp-controller="Home" asp-action="Logout" method="post">
-            <button type="submit">Logout</button>
-        </form>*@
     </div>
     <div id="output2" class="col-md-3">
         <h4>What others are buying:</h4>
@@ -49,20 +43,12 @@
     var output;
     var text = "test echo";
 
-    //function write(s) {
-    //    //var p = document.createElement("p");
-    //    p.innerHTML = s;
-    //    output.replaceChild(p, p);
-    //}
-
     function write(s, p, o) {
-        //var p = document.createElement("p");
         p.innerHTML = s;
         o.replaceChild(p, p);
     }
 
     function write2(s) {
-        //var p = document.createElement("p");
         p2.innerHTML = s;
         output2.replaceChild(p2, p2);
     }
@@ -95,15 +81,6 @@
             html += '</ul>';
             $('#p2').html(html);
 
-
-            //$(jsonobject).each(function(i,val){
-            //    $.each(val,function(k,v){
-            //        write(k+" : "+ v);
-            //    });
-
-            //});
-            
-
             socket.close();
         };
         socket.onerror = function (e) {
@@ -122,10 +99,6 @@
         output2 = document.getElementById("output2");
         doConnect();
     }
-
-    //window.onload = onInit;
-    //window.onclick = onInit;
-    //window.onmousemove = onInit;
 
     setInterval(onInit, 1500);
 

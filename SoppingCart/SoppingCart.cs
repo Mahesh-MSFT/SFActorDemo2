@@ -59,25 +59,8 @@ namespace SoppingCart
         {
             var cartItem = new CartItem();
 
-            //return this.StateManager.GetStateAsync<List<ShoppingItem>>("shoppingcart");
-            //var allActors = this.StateManager.GetStateNamesAsync().Result;
             var allActors = this.StateManager.GetStateAsync<Recommendation>("State").Result;
-
-            //var recomm = allActors.RecommendationList.GroupBy(n => n.ShoppingItemCategory, (key, values) => new { Category = key, Count = values.Count() });
-            //var recomm = allActors.RecommendationList.GroupBy(n => n.ShoppingItemCategory).OrderByDescending(g => g.Count()).ToDictionary(g => g.Key, g => g.Count());
-            //var recomm = allActors.RecommendationList.GroupBy(n => n.IPAddress).OrderByDescending(g => g.Count()).ToDictionary(g => g.Key, g => g.Count());
-            //var recomm = allActors.RecommendationList.GroupBy(n => n.IPAddress).Select(x => x.First()).ToDictionary(x => x.IPAddress, x => x.ShoppingItemCategory);
-            //var recomm = allActors.RecommendationList.GroupBy(x => x.IPAddress, (key, g) => g.OrderByDescending(e => e.AddedOn).First()).ToDictionary(x => x.IPAddress, x => x.ShoppingItemCategory);
             var recomm = allActors.RecommendationList.Where(x => x.AddedOn > DateTime.UtcNow.AddSeconds(-2)).GroupBy(x => x.IPAddress).Select(t => t.OrderByDescending(c => c.AddedOn).First()).ToDictionary(x => x.IPAddress, x=> x.ShoppingItemCategory);
-
-            //var recommquery = from recomms in allActors.RecommendationList
-            //            group recomms by recomms.IPAddress into recommsgroup
-            //            select recommsgroup.Max(p => p.AddedOn);
-
-            //var recomm = recommquery.ToDictionary(x => x.);
-
-
-            //return Task.FromResult<int>(allActors.RecommendationList.Count());
 
             Random rnd = new Random();
             int scn = rnd.Next(0, 10);
@@ -91,10 +74,6 @@ namespace SoppingCart
         Task ISoppingCart.AddToCartAsync(ShoppingItem shoppingItem)
         {
            
-                //var shoppingCartList = this.StateManager.GetOrAddStateAsync<IReliableDictionary<string, ShoppingItem>>("",)
-
-                ////return this.StateManager.GetOrAddStateAsync<IReliableDictionary<string, ShoppingItem>>("shoppingcartList", shoppingItem);
-
                 Recommendation rec = this.StateManager.GetStateAsync<Recommendation>("State").Result;
 
                 if (!String.IsNullOrWhiteSpace(shoppingItem.ShoppingItemCategory))
@@ -105,14 +84,6 @@ namespace SoppingCart
                 }
 
                 return this.StateManager.SetStateAsync<Recommendation>("State", rec);
-
-
-                ///return this.StateManager.AddOrUpdateStateAsync(shoppingItem.ShoppingItemCategory, shoppingItem, (k , v) => shoppingItem);
-
-                //return this.StateManager.AddStateAsync<ShoppingItem>(shoppingItem.ShoppingItemName, shoppingItem);
-
-                ////return this.StateManager.AddOrUpdateStateAsync(shoppingItem.ShoppingItemCategory, shoppingItem);
-
         }
 
         Task<string> ISoppingCart.GetVersionAsync()

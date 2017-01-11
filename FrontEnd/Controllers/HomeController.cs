@@ -16,34 +16,7 @@ namespace FrontEnd.Controllers
         public IActionResult Index()
         {
             var im = new IndexModel();
-            //Random rnd = new Random();
-            //int scn = rnd.Next(0, 10);
-
-            //ShoppingCategoryEnum sce = (ShoppingCategoryEnum)scn;
-
-            //im.ShoppingCategory = sce.ToString();
-
-            //ActorId actorId = new ActorId(HttpContext.Connection.RemoteIpAddress.ToString());
-
-            //ActorId actorId2 = new ActorId("Demo2");
-
-
-
-            //ICrossSale cs = ActorProxy.Create<ICrossSale>(actorId2, "fabric:/SFActorDemoApp");
-
-            //int csi = cs.DoCrossSale(im.ShoppingCategory).Result;
-
-            //ShoppingCategoryEnum sce2 = (ShoppingCategoryEnum)csi;
-
-            //im.CrossSaleItem = sce2.ToString();
-
-            ////im.Recommendations = sc.GetCartItemsAsync().Result;
-
-            ////ViewData["Version"] = sc.GetVersionAsync().Result;
-
             return View(im);
-
-            ////return View();
         }
 
         [HttpPost]
@@ -56,30 +29,6 @@ namespace FrontEnd.Controllers
 
             ShoppingItem si = new ShoppingItem { ShoppingItemCategory = indexModel.ShoppingCategory };
             sc.AddToCartAsync(si);
-
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public IActionResult Logout(IndexModel indexModel)
-        {
-            ActorId actorId = new ActorId(HttpContext.Connection.RemoteIpAddress.ToString());
-
-            IActorService myActorServiceProxy = ActorServiceProxy.Create(new Uri("fabric:/SFActorDemoApp"), actorId);
-
-            myActorServiceProxy.DeleteActorAsync(actorId, new System.Threading.CancellationToken());
-
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public IActionResult AddToCart2(ShoppingItem shoppinItem)
-        {
-            // Create a randomly distributed actor ID
-            ActorId actorId = new ActorId(HttpContext.Connection.RemoteIpAddress.ToString());
-
-            ISoppingCart sc = ActorProxy.Create<ISoppingCart>(actorId, "fabric:/SFActorDemoApp");
-            sc.AddToCartAsync(shoppinItem);
 
             return RedirectToAction("Index");
         }
