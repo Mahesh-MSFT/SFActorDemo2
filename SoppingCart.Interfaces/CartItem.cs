@@ -7,5 +7,7 @@ namespace SoppingCart.Interfaces
         public string NewCartItem { get; set; }
 
         public Dictionary<string, string> OtherCartItems { get; set; }
+
+        public Dictionary<string, string> AllCartItems { get; set; }
     }
 }

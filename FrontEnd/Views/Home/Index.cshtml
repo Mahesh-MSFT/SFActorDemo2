@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-md-3">
         <form asp-controller="Home" asp-action="Index" method="post">
-            <h4>You are about to add:</h4>
+            <h4>You are about to buy:</h4>
             <input asp-for="@Model.ShoppingCategory" readonly hidden />
             @*<p><h1>@Model.ShoppingCategory</h1></p>
             <br />*@
@@ -16,7 +16,11 @@
     </div>
     <div id="output2" class="col-md-3">
         <h4>What others are buying:</h4>
-        <h3 id="p2"></h3>
+        <h4 id="p2"></h4>
+    </div>
+    <div id="output3" class="col-md-3">
+        <h4>Items bought:</h4>
+        <h5 id="p3"></h5>
     </div>
         @if (@Model.Recommendations != null && @Model.Recommendations.Count() > 0)
         {
@@ -36,70 +40,127 @@
             </div>
         }
     </div>
-<script language="javascript" type="text/javascript">
+<div class="row">
+    @*<div id='myMap' style='height: 100vh;'></div>*@
+    <div id='map' style='height: 100vh;'></div>
+</div>
 
-    var socket;
-    var uri = "ws://" + window.location.host + "/ws";
-    var output;
-    var text = "test echo";
+    <script language="javascript" type="text/javascript">
 
-    function write(s, p, o) {
-        p.innerHTML = s;
-        o.replaceChild(p, p);
-    }
+        //var map;
+        //function loadMapScenario() {
+        //    map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+        //        credentials: 'AgGbhOlqPV1kXptlEaWsvK6ne-jKhc0nw29sARxQwdINdTRcWQih1ZjwQXSOFYoj',
+        //    });
 
-    function write2(s) {
-        p2.innerHTML = s;
-        output2.replaceChild(p2, p2);
-    }
+        //    map.setView({
+        //        zoom: 1
+        //    });
+        //}
 
-    function doConnect() {
-        socket = new WebSocket(uri);
-        socket.onopen = function (e) {
-            //write("opened " + uri);
-            doSend();
-        };
-        socket.onclose = function (e) {
-            //write("closed");
-        };
-        socket.onmessage = function (e) {
-           
-            var jsonobject = $.parseJSON(e.data);
+        //function loadMapScenario() {
+        //    try {
+        //        IPMapper.initializeMap("map");
+                
+        //    } catch (e) {
+        //        //handle error
+        //    }
+        //};
 
-            //write(e.data);
+        var socket;
+        var uri = "ws://" + window.location.host + "/ws";
+        var output;
+        var text = "test echo";
 
-            write(jsonobject.NewCartItem, p, output);
+        function write(s, p, o) {
+            p.innerHTML = s;
+            o.replaceChild(p, p);
+        }
 
-            var html = '<ul>'
+        function write2(s) {
+            p2.innerHTML = s;
+            output2.replaceChild(p2, p2);
+        }
 
-            $.each(jsonobject.OtherCartItems, function (idx, obj) {
-                //write(idx + ':' + obj, p2, output2);
+        function doConnect() {
+            socket = new WebSocket(uri);
+            socket.onopen = function (e) {
+                //write("opened " + uri);
+                doSend();
+            };
+            socket.onclose = function (e) {
+                //write("closed");
+            };
+            socket.onmessage = function (e) {
 
-                html += "<li>" + idx + ":  " + obj + "</li>";
-            });
+                var jsonobject = $.parseJSON(e.data);
 
-            html += '</ul>';
-            $('#p2').html(html);
+                //write(e.data);
 
-            socket.close();
-        };
-        socket.onerror = function (e) {
-            write("Error: " + e.data);
-        };
-    }
+                write(jsonobject.NewCartItem, p, output);
 
-    function doSend() {
-        //write("Sending: " + text);
-        //socket.send(text);
-        socket.send(p.innerHTML)
-    }
+                //Write what others are buying
+                var html = '<ul>'
 
-    function onInit() {
-        output = document.getElementById("output");
-        output2 = document.getElementById("output2");
-        doConnect();
-    }
+                $.each(jsonobject.OtherCartItems, function (idx, obj) {
+                    //write(idx + ':' + obj, p2, output2);
 
-    setInterval(onInit, 1500);
+                    html += "<li>" + idx + ":  " + obj + "</li>";
 
-</script>
+                    if (idx == "::1") {
+
+                        idx = "171.50.235.33";
+                    }
+                    
+                    IPMapper.addIPMarker(idx);
+                });
+
+                html += '</ul>';
+                $('#p2').html(html);
+
+                // Write Total Items Bought
+                var html3 = '<ol>'
+
+                $.each(jsonobject.AllCartItems, function (idx3, obj3) {
+                    //write(idx + ':' + obj, p2, output2);
+
+                    html3 += "<li>" + idx3 + " (" + obj3 + ")" + "</li>";
+                });
+
+                html3 += '</ol>';
+                $('#p3').html(html3);
+
+
+                socket.close();
+            };
+            socket.onerror = function (e) {
+                write("Error: " + e.data);
+            };
+        }
+
+        function doSend() {
+            //write("Sending: " + text);
+            //socket.send(text);
+            socket.send(p.innerHTML)
+        }
+
+        function onInit() {
+            output = document.getElementById("output");
+            output2 = document.getElementById("output2");
+            output3 = document.getElementById("output3");
+            doConnect();
+            //IPMapper.addIPMarker("111.111.111.111");
+        }
+
+        setInterval(onInit, 1500);
+
+        IPMapper.initializeMap("map");
+
+        //$(document).ready(function () { IPMapper.initializeMap("map"); });
+    </script>
+
+    
+@*<script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?branch=release&callback=loadMapScenario' async defer></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>*@
+
+

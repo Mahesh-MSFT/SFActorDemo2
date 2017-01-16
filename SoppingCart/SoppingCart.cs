@@ -60,13 +60,16 @@ namespace SoppingCart
             var cartItem = new CartItem();
 
             var allActors = this.StateManager.GetStateAsync<Recommendation>("State").Result;
+            var allrecomm = allActors.RecommendationList.GroupBy(n => n.ShoppingItemCategory).OrderByDescending(g => g.Count()).ToDictionary(g => g.Key, g => g.Count().ToString());
             var recomm = allActors.RecommendationList.Where(x => x.AddedOn > DateTime.UtcNow.AddSeconds(-2)).GroupBy(x => x.IPAddress).Select(t => t.OrderByDescending(c => c.AddedOn).First()).ToDictionary(x => x.IPAddress, x=> x.ShoppingItemCategory);
+            
 
             Random rnd = new Random();
             int scn = rnd.Next(0, 10);
 
             cartItem.NewCartItem = scn.ToString();
             cartItem.OtherCartItems = recomm;
+            cartItem.AllCartItems = allrecomm;
 
             return Task.FromResult<CartItem>(cartItem);
         }
