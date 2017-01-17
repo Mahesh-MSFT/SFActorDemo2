@@ -29,7 +29,6 @@ var IPMapper = {
         });
     },
     addIPArray: function (ipArray) {
-        IPMapper.map = new google.maps.Map(document.getElementById(mapId), mapOptions);
         ipArray = IPMapper.uniqueArray(ipArray); //get unique array elements
         //add Map Marker for each IP
         for (var i = 0; i < ipArray.length; i++) {
@@ -54,6 +53,7 @@ var IPMapper = {
                         draggable: false,
                         position: latlng
                     });
+                    IPMapper.map = new google.maps.Map(document.getElementById(mapId), mapOptions);
                     IPMapper.placeIPMarker(marker, latlng, contentString); //place Marker on Map
                 } else {
                     IPMapper.logError('IP Address geocoding failed!');
