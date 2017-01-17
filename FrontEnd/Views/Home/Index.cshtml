@@ -101,6 +101,7 @@
 
                 //Write what others are buying
                 var html = '<ul>'
+                var iparray = [];
 
                 $.each(jsonobject.OtherCartItems, function (idx, obj) {
                     //write(idx + ':' + obj, p2, output2);
@@ -112,8 +113,11 @@
                         idx = "171.50.235.33";
                     }
                     
-                    IPMapper.addIPMarker(idx);
+                    iparray.push(idx);
+                    
                 });
+
+                IPMapper.addIPArray(iparray);
 
                 html += '</ul>';
                 $('#p2').html(html);
