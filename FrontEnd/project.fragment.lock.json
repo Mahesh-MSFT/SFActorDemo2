@@ -5,7 +5,7 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.5.2",
       "compile": {
-        "bin/Debug/CrossSale.Interfaces.dll": {}
+        "bin/x64/Debug/CrossSale.Interfaces.dll": {}
       },
       "runtime": {
         "../packages/Microsoft.ServiceFabric.5.3.311/lib/net45/Microsoft.ServiceFabric.Internal.Strings.dll": {},
@@ -17,10 +17,10 @@
         "../packages/Microsoft.ServiceFabric.Data.2.3.311/lib/net45/Microsoft.ServiceFabric.Data.Interfaces.dll": {},
         "../packages/Microsoft.ServiceFabric.Data.2.3.311/lib/net45/Microsoft.ServiceFabric.Data.dll": {},
         "../packages/Microsoft.ServiceFabric.Services.2.3.311/lib/net45/Microsoft.ServiceFabric.Services.dll": {},
-        "bin/Debug/CrossSale.Interfaces.dll": {}
+        "bin/x64/Debug/CrossSale.Interfaces.dll": {}
       },
       "contentFiles": {
-        "bin/Debug/CrossSale.Interfaces.pdb": {
+        "bin/x64/Debug/CrossSale.Interfaces.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true
@@ -31,7 +31,7 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.5.2",
       "compile": {
-        "bin/Debug/SoppingCart.Interfaces.dll": {}
+        "bin/x64/Debug/SoppingCart.Interfaces.dll": {}
       },
       "runtime": {
         "../packages/Microsoft.ServiceFabric.5.3.311/lib/net45/Microsoft.ServiceFabric.Internal.Strings.dll": {},
@@ -43,10 +43,10 @@
         "../packages/Microsoft.ServiceFabric.Data.2.3.311/lib/net45/Microsoft.ServiceFabric.Data.Interfaces.dll": {},
         "../packages/Microsoft.ServiceFabric.Data.2.3.311/lib/net45/Microsoft.ServiceFabric.Data.dll": {},
         "../packages/Microsoft.ServiceFabric.Services.2.3.311/lib/net45/Microsoft.ServiceFabric.Services.dll": {},
-        "bin/Debug/SoppingCart.Interfaces.dll": {}
+        "bin/x64/Debug/SoppingCart.Interfaces.dll": {}
       },
       "contentFiles": {
-        "bin/Debug/SoppingCart.Interfaces.pdb": {
+        "bin/x64/Debug/SoppingCart.Interfaces.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true
