@@ -48,8 +48,8 @@ namespace FrontEnd.WebSockets
 
                 var ret = sc2.GetCartItemsAsync().Result;
 
-                //ret.NewCartItem =((ShoppingCategoryEnum)Convert.ToInt16(ret.NewCartItem)).ToString();
-                ret.NewCartItem = ((FaultyShoppingCategoryEnum)Convert.ToInt16(ret.NewCartItem)).ToString();
+                ret.NewCartItem =((ShoppingCategoryEnum)Convert.ToInt16(ret.NewCartItem)).ToString();
+                //ret.NewCartItem = ((FaultyShoppingCategoryEnum)Convert.ToInt16(ret.NewCartItem)).ToString();
 
                 var data = JsonConvert.SerializeObject(ret);
                 var encoded = Encoding.UTF8.GetBytes(data);
